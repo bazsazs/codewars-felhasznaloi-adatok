@@ -27,31 +27,40 @@ let userData = null;
         }
 
         // Összesített pontok megjelenítése
-        function showTotalPoints() {
+         function showTotalPoints() {
             if (!userData) return;
             const content = document.getElementById('content');
             const totalPoints = userData.ranks.overall.score;
-            content.innerHTML = `<h2>Összesített pontok:</h2><p>${totalPoints} pont</p>`;
+            const username = document.getElementById('username').value;
+            content.innerHTML = `<h2>${username} Összesített pontjai: </h2><p>${totalPoints} pont</p>`;
         }
+        
+        
 
         // Pontok nyelvek szerint megjelenítése
         function showPointsByLanguage() {
             if (!userData) return;
             const content = document.getElementById('content');
             const languages = userData.ranks.languages;
-
+            const username = document.getElementById('username').value;
+        
+            // Ellenőrzés, ha nincs adat a nyelvek szerint
             if (!languages || Object.keys(languages).length === 0) {
-                content.innerHTML = `<h2>Pontok nyelvek szerint:</h2><p>Nincs elérhető adat a nyelvek szerint.</p>`;
+                content.innerHTML = `<h2>${username} pontjai nyelvek szerint:</h2><p>Nincs elérhető adat a nyelvek szerint.</p>`;
                 return;
             }
-
-            let html = '<h2>Pontok nyelvek szerint:</h2><ul>';
+        
+            // Hozzáadja a felhasználónevet a címhez
+            let html = `<h2>${username} pontjai nyelvek szerint:</h2><ul>`;
             for (const [language, data] of Object.entries(languages)) {
                 html += `<li>${language}: ${data.score} pont</li>`;
             }
             html += '</ul>';
             content.innerHTML = html;
         }
+        
+        
+
 
         // 404-es hibaoldal megjelenítése
         function showErrorPage() {
